@@ -11,6 +11,7 @@ public class isPick : MonoBehaviour
 
     void Start()
     {
+
     }
 
 
@@ -18,7 +19,7 @@ public class isPick : MonoBehaviour
     {
         if (picked)
         {
-            objectAssociated.enabled = false;
+            objectAssociated.enabled = true;
             gameObject.SetActive(false);
         }
     }

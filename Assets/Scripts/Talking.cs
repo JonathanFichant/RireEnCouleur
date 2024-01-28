@@ -20,7 +20,6 @@ public class Talking : MonoBehaviour
 
     void Update()
     {
-        
         if (isTalking)
         {
             bulleBD.position = player.position + new Vector3(-1f, 6f, -2f);

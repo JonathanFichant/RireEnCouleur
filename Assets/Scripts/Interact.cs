@@ -47,6 +47,8 @@ public class Interact : MonoBehaviour
         busyScript1 = Slot1.GetComponent<Busy>();
         busyScript2 = Slot2.GetComponent<Busy>();
         busyScript3 = Slot3.GetComponent<Busy>();
+        CheckPositionEmotSlot();
+
     }
 
     void Update()
@@ -61,6 +63,7 @@ public class Interact : MonoBehaviour
         {
             ResetWin();
         }
+
         
     }
 
@@ -75,9 +78,9 @@ public class Interact : MonoBehaviour
                 scrMove.isTalking = true;
                 scrTalking.isTalking = true;
 
-                CheckPositionEmotSlot(); // 
+                //CheckPositionEmotSlot(); // 
 
-                OpenInteraction();
+                //OpenInteraction();
 
             }
         }
@@ -106,7 +109,6 @@ public class Interact : MonoBehaviour
             {
                 case "NPC1":
                     PlaceObjectNPC1(); // peut faire bug ?
-                    Debug.Log("openinteraction");
                     break;
 
                 case "NPC2":
@@ -209,7 +211,7 @@ public class Interact : MonoBehaviour
     }
 
 
-    void PlaceObjectNPC1()
+    public void PlaceObjectNPC1()
     {
         Transform transformEmot1 = Emot1.transform;
         Transform transformEmot2 = Emot2.transform;
@@ -218,10 +220,10 @@ public class Interact : MonoBehaviour
         transformEmot1.position = emotSlot1Transform.position;
         transformEmot2.position = emotSlot2Transform.position;
         transformEmot3.position = emotSlot3Transform.position;
-        Debug.Log("placeObjectNPC1");
+        
     }
 
-    void PlaceObjectNPC2()
+    public void PlaceObjectNPC2()
     {
         Transform transformEmot4 = Emot4.transform;
         Transform transformEmot5 = Emot5.transform;
@@ -232,7 +234,7 @@ public class Interact : MonoBehaviour
         transformEmot6.position = emotSlot3Transform.position;
     }
 
-    void PlaceObjectNPC3()
+    public void PlaceObjectNPC3()
     {
         Transform transformEmot7 = Emot7.transform;
         Transform transformEmot8 = Emot8.transform;
@@ -243,7 +245,7 @@ public class Interact : MonoBehaviour
         transformEmot9.position = emotSlot3Transform.position;
     }
 
-    void PlaceObjectNPC4()
+    public void PlaceObjectNPC4()
     {
         Transform transformEmot10 = Emot10.transform;
         Transform transformEmot11 = Emot11.transform;
@@ -257,7 +259,6 @@ public class Interact : MonoBehaviour
     void ResetWin()
     {
         // fx win sound particle
-        Debug.Log("reset");
         talk = false;
         scrMove.isTalking = false;
         scrTalking.isTalking = false;

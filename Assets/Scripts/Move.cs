@@ -13,6 +13,7 @@ public class Move : MonoBehaviour
     public Transform NPC3;
     public Transform NPC4;
     public Transform controlled;
+    public Interact scrInteract;
 
     void Start()
     {
@@ -32,17 +33,37 @@ public class Move : MonoBehaviour
         {
             case 0:
                 controlled = NPC0;
+                if (!isTalking)
+                {
+                    scrInteract.PlaceObjectNPC1();
+                }
+                
                 break;
             case 1:
                 controlled = NPC0;
+                if (!isTalking)
+                {
+                    scrInteract.PlaceObjectNPC2();
+                }
+                    
                 break;
 
             case 2:
                 controlled = NPC2;
+                if (!isTalking)
+                {
+                    scrInteract.PlaceObjectNPC3();
+                }
+                    
                 break;
 
             case 3:
                 controlled = NPC3;
+                if (!isTalking)
+                {
+                    scrInteract.PlaceObjectNPC4();
+                }
+                    
                 break;
 
             case 4:
@@ -64,7 +85,7 @@ public class Move : MonoBehaviour
             Vector2 walking = new Vector2(-1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);
         }
-        else if ((Input.GetKey("d") || Input.GetKey("right")) && controlled.position.x <= 150 ) // valeur à changer à chaque next step
+        else if ((Input.GetKey("d") || Input.GetKey("right")) && controlled.position.x <= 152 ) // valeur à changer à chaque next step
         {
             Vector2 walking = new Vector2(1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);
