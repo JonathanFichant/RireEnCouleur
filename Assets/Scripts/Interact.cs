@@ -34,6 +34,9 @@ public class Interact : MonoBehaviour
     public Busy busyScript2;
     public Busy busyScript3;
     private bool win = false;
+    public Transform transformNPC2;
+    public Transform transformNPC3;
+
 
 
     void Start()
@@ -49,6 +52,7 @@ public class Interact : MonoBehaviour
     void Update()
     {
         Talk();
+
         if (talk)
         {
             checkWin();
@@ -63,7 +67,7 @@ public class Interact : MonoBehaviour
 
     void Talk()
     {
-        if (Input.GetKey("space"))
+        if (Input.GetKey("space")) //besoin de 2 frames pour tp les emot :|
         {
             if (DetectObjectNPC())
             {
@@ -71,7 +75,8 @@ public class Interact : MonoBehaviour
                 scrMove.isTalking = true;
                 scrTalking.isTalking = true;
 
-                CheckPositionEmotSlot();
+                CheckPositionEmotSlot(); // 
+
                 OpenInteraction();
 
             }
@@ -84,7 +89,7 @@ public class Interact : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("NPC"))
+            if ((collider.name == "NPC1" && scrMove.stepGame == 0) || (collider.name == "NPC2" && scrMove.stepGame == 1) || (collider.name == "NPC3" && scrMove.stepGame == 2) || (collider.name == "NPC4" && scrMove.stepGame == 3))
             {
                 nameNPC = collider.gameObject.name;
                 return true;
@@ -101,6 +106,7 @@ public class Interact : MonoBehaviour
             {
                 case "NPC1":
                     PlaceObjectNPC1(); // peut faire bug ?
+                    Debug.Log("openinteraction");
                     break;
 
                 case "NPC2":
@@ -150,7 +156,7 @@ public class Interact : MonoBehaviour
                     // WIN
                     win = true; 
                     Emot4.SetActive(false); Emot5.SetActive(false); Emot6.SetActive(false);
-
+                    scrTalking.player = transformNPC2;
                     // PASSER LE CONTROLE AU NPC2
                 }
 
@@ -165,7 +171,7 @@ public class Interact : MonoBehaviour
                     // WIN
                     win = true;
                     Emot7.SetActive(false); Emot8.SetActive(false); Emot9.SetActive(false);
-
+                    scrTalking.player = transformNPC3;
                     // PASSER LE CONTROLE AU NPC3
                 }
 
@@ -178,7 +184,7 @@ public class Interact : MonoBehaviour
                 if (scriptDrag10.order == 2 && scriptDrag11.order == 1 && scriptDrag12.order == 3)
                 {
                     // WIN
-                    ResetWin(); //slot dispo
+                    win = true;
                     Emot10.SetActive(false); Emot11.SetActive(false); Emot12.SetActive(false);
                     // WIN FINALE
                 }
@@ -212,6 +218,7 @@ public class Interact : MonoBehaviour
         transformEmot1.position = emotSlot1Transform.position;
         transformEmot2.position = emotSlot2Transform.position;
         transformEmot3.position = emotSlot3Transform.position;
+        Debug.Log("placeObjectNPC1");
     }
 
     void PlaceObjectNPC2()
@@ -258,6 +265,13 @@ public class Interact : MonoBehaviour
         busyScript2.isBusy = false;
         busyScript3.isBusy = false;
         win = false;
+        NextStep();
+    }
+
+
+    void NextStep()
+    {
+        scrMove.stepGame++;
     }
 
 }

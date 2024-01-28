@@ -18,6 +18,16 @@ public class Move : MonoBehaviour
     {
         controlled = NPC0;
         // empecher le joueur d'aller trop loin, mettre  des collider
+        
+    }
+
+
+    void Update()
+    {
+        if (!isTalking)
+        {
+            Walk();
+        }
         switch (stepGame)
         {
             case 0:
@@ -36,21 +46,14 @@ public class Move : MonoBehaviour
                 break;
 
             case 4:
-                controlled = NPC4;
+                controlled = NPC3;
                 //FIN , pas besoin de case 4
+                // changement de scene vers écran de fin
+
                 break;
 
             default:
                 break;
-        }
-    }
-
-
-    void Update()
-    {
-        if (!isTalking)
-        {
-            Walk();
         }
     }
 
@@ -61,7 +64,7 @@ public class Move : MonoBehaviour
             Vector2 walking = new Vector2(-1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);
         }
-        else if (Input.GetKey("d") || Input.GetKey("right"))
+        else if ((Input.GetKey("d") || Input.GetKey("right")) && controlled.position.x <= 150 ) // valeur à changer à chaque next step
         {
             Vector2 walking = new Vector2(1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);

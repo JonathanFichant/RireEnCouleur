@@ -20,15 +20,16 @@ public class Talking : MonoBehaviour
 
     void Update()
     {
+        
         if (isTalking)
         {
-            bulleBD.position = player.position + new Vector3(0f, 5f, -2f);
-            SelectionEmot.position = player.position + new Vector3(0f, -1.5f, -2f);
+            bulleBD.position = player.position + new Vector3(-1f, 6f, -2f);
+            SelectionEmot.position = player.position + new Vector3(0f, -6f, -1.9f);
         }
         else
         {
             bulleBD.position = new Vector3(-5f, -9f,-1.5f);
-            SelectionEmot.position = new Vector3(0f, -9f,-1.5f);
+            SelectionEmot.position = player.position + new Vector3(0f, -6f,-1.9f);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -42,6 +43,5 @@ public class Talking : MonoBehaviour
                 hit.collider.GetComponent<Drag>().isDrag = true;
             }
         }
-        
     }
 }

@@ -20,8 +20,6 @@ public class Drag : MonoBehaviour
     public Busy busyScript3;
     private bool slotDetected = false;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         nameObject = gameObject.name;
@@ -84,7 +82,7 @@ public class Drag : MonoBehaviour
     void MoveDrag()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(mousePosition.x, mousePosition.y,-2.5f);
+        transform.position = new Vector3(mousePosition.x, mousePosition.y,-3.5f);
     }
 
     void DetectSlot()
@@ -98,8 +96,7 @@ public class Drag : MonoBehaviour
                 slotDetected = true;
                 Busy busyScript = collider.gameObject.GetComponent<Busy>();
                 if (collider.name == "Slot1")
-                {
-                    
+                {   
                     if (busyScript.isBusy == false)
                     {
                         order = 1;
