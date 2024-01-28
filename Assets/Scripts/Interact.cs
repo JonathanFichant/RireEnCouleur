@@ -8,7 +8,7 @@ public class Interact : MonoBehaviour
 {
 
     public bool talk = false;
-    public float distanceDetection = 3f;
+    public float distanceDetection = 3.5f;
     public string nameNPC;
     public Talking scrTalking;
     public Move scrMove;
@@ -36,6 +36,7 @@ public class Interact : MonoBehaviour
     private bool win = false;
     public Transform transformNPC2;
     public Transform transformNPC3;
+    public int numberObjectPicked = 0;
 
 
 
@@ -63,26 +64,22 @@ public class Interact : MonoBehaviour
         {
             ResetWin();
         }
-
-        
     }
 
 
     void Talk()
     {
-        if (Input.GetKey("space")) //besoin de 2 frames pour tp les emot :|
+        if (Input.GetKey("space")) //besoin de 2 frames pour tp les emot, bizarre
         {
-            if (DetectObjectNPC())
-            {
-                talk = true;
-                scrMove.isTalking = true;
-                scrTalking.isTalking = true;
-
-                //CheckPositionEmotSlot(); // 
-
-                //OpenInteraction();
-
+            if (numberObjectPicked == 3){
+                if (DetectObjectNPC())
+                {
+                    talk = true;
+                    scrMove.isTalking = true;
+                    scrTalking.isTalking = true;
+                }
             }
+
         }
     }
 
@@ -266,6 +263,7 @@ public class Interact : MonoBehaviour
         busyScript2.isBusy = false;
         busyScript3.isBusy = false;
         win = false;
+        numberObjectPicked = 0;
         NextStep();
     }
 

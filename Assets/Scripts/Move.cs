@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Move : MonoBehaviour
 {
@@ -12,23 +14,51 @@ public class Move : MonoBehaviour
     public Transform NPC2;
     public Transform NPC3;
     public Transform NPC4;
+
+    /*public Sprite spriteNPC0;
+    public Sprite spriteNPC1;
+    public Sprite spriteNPC2;
+    public Sprite spriteNPC3;
+    public Sprite colorNPC0;
+    public Sprite colorNPC1;
+    public Sprite colorNPC2;
+    public Sprite colorNPC3;*/
+
+    public SwitchSprite scrNPC0;
+    public SwitchSprite scrNPC4;
+    public SwitchSprite scrNPC2;
+    public SwitchSprite scrNPC3;
+
     public Transform controlled;
     public Interact scrInteract;
+    private float maxX;
+    //public Sprite ActualSprite;
+    private bool directionSprite = true;
+    private bool Demon = true;
 
     void Start()
     {
+        
         controlled = NPC0;
-        // empecher le joueur d'aller trop loin, mettre  des collider
+        maxX = 13f;
         
     }
 
 
     void Update()
     {
+        /*if (setup == true)
+        {
+            SetUpSprite();
+        }*/
+
+        SetUpSprite();
         if (!isTalking)
         {
             Walk();
         }
+
+
         switch (stepGame)
         {
             case 0:
@@ -37,6 +67,7 @@ public class Move : MonoBehaviour
                 {
                     scrInteract.PlaceObjectNPC1();
                 }
+                maxX = 13f;
                 
                 break;
             case 1:
@@ -45,7 +76,7 @@ public class Move : MonoBehaviour
                 {
                     scrInteract.PlaceObjectNPC2();
                 }
-                    
+                maxX = 64.5f;
                 break;
 
             case 2:
@@ -54,16 +85,21 @@ public class Move : MonoBehaviour
                 {
                     scrInteract.PlaceObjectNPC3();
                 }
-                    
+                maxX = 99f;
+
                 break;
 
             case 3:
+                if (Demon)
+                {
+                    SetUpDemon();
+                }
                 controlled = NPC3;
                 if (!isTalking)
                 {
                     scrInteract.PlaceObjectNPC4();
                 }
-                    
+                maxX = 161.5f;
                 break;
 
             case 4:
@@ -84,13 +120,60 @@ public class Move : MonoBehaviour
         {
             Vector2 walking = new Vector2(-1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);
+            if (directionSprite)
+            {
+                RotateSprite();
+            }
         }
-        else if ((Input.GetKey("d") || Input.GetKey("right")) && controlled.position.x <= 152 ) // valeur à changer à chaque next step
+        else if ((Input.GetKey("d") || Input.GetKey("right")) && controlled.position.x <= maxX ) // valeur à changer à chaque next step
         {
             Vector2 walking = new Vector2(1, 0) * speedWalk * Time.deltaTime;
             controlled.transform.Translate(walking);
+            if (!directionSprite)
+            {
+                RotateSprite();
+            }
         }
     }
+
+
+    public void SetUpSprite()
+    {
+        switch (stepGame)
+        {
+            case 0:
+                break;
+            case 1:
+                scrNPC0.GreyToColor();
+                break;
+            case 2:
+                scrNPC2.GreyToColor();
+                break;
+            case 3:
+                scrNPC3.GreyToColor();
+                break;
+            case 4:
+                scrNPC4.GreyToColor();
+                break;
+        }
+
+    }
+    
+    void RotateSprite()
+    {
+        Vector2 newScale = controlled.transform.localScale;
+        newScale.x *= -1;
+        controlled.transform.localScale = newScale;
+        directionSprite = !directionSprite;
+        //
+    }
+
+    void SetUpDemon()
+    {
+        directionSprite = false;
+        Demon = false;
+    }
+
 }
 
 

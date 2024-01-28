@@ -7,7 +7,7 @@ public class isPick : MonoBehaviour
     private bool picked = false;
     public Interact scrInteract;
     public Renderer objectAssociated;
-
+    public Move scrMove;
 
     void Start()
     {
@@ -20,12 +20,24 @@ public class isPick : MonoBehaviour
         if (picked)
         {
             objectAssociated.enabled = true;
+            scrInteract.numberObjectPicked++;
             gameObject.SetActive(false);
+            picked = false;
         }
     }
 
     public void Picked()
     {
-        picked = true;
+        if (gameObject.name == "pickupObjectSkeleton7")
+        {
+            if (scrMove.stepGame == 2)
+            {
+                picked = true;
+            }
+        }
+        else
+        {
+            picked = true;
+        }
     }
 }
